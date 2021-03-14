@@ -14,6 +14,9 @@ use kadcore\tcphpmvc\db\Database;
  */
 class Application
 {
+    const EVENT_BEFORE_REQUEST = "beforeRequest";
+    const EVENT_AFTER_REQUEST = "afterRequest";
+
     public static string $ROOT_DIR;
     public Router $router;
     public Request $request;
