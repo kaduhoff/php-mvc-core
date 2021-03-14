@@ -4,6 +4,7 @@ namespace kadcore\tcphpmvc;
 
 use kadcore\tcphpmvc\Controller;
 use Exception;
+use kadcore\tcphpmvc\events\EventTypes;
 
 /**
  * Router para os caminhos da url
@@ -42,9 +43,13 @@ class Router
 
     public function resolve()
     {
+        Application::$app->eventListeners->triggerEvent(EventTypes::EVENT_BEFORE_REQUEST);
+
         $path = $this->request->getPath();
         $method =  $this->request->method();
         $callback = $this->routes[$method][$path] ?? false;
+
+        Application::$app->eventListeners->triggerEvent(EventTypes::EVENT_AFTER_REQUEST);
 
         if ($callback === false) {
             throw new Exception("Página $path não encontrada", 404);

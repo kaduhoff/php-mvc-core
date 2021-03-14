@@ -4,6 +4,8 @@ namespace kadcore\tcphpmvc;
 
 use kadcore\tcphpmvc\UserModel;
 use kadcore\tcphpmvc\db\Database;
+use kadcore\tcphpmvc\events\EventListener;
+use kadcore\tcphpmvc\events\EventTypes;
 
 /**
  * Class Application
@@ -14,9 +16,6 @@ use kadcore\tcphpmvc\db\Database;
  */
 class Application
 {
-    const EVENT_BEFORE_REQUEST = "beforeRequest";
-    const EVENT_AFTER_REQUEST = "afterRequest";
-
     public static string $ROOT_DIR;
     public Router $router;
     public Request $request;
@@ -27,6 +26,7 @@ class Application
     public Controller $controller;
     public UserModel $userLogged;
     public View $view;
+    public EventListener $eventListeners;
 
     public function __construct($rootPath, array $config)
     {
@@ -37,6 +37,7 @@ class Application
         $this->response = new Response();
         $this->session = new Session();
         $this->userLogged =  self::getLoggedUser();
+        $this->eventListeners = new EventListener();
         //echo $this->userLogged->id;
         $this->router = new Router($this->request, $this->response);
         $this->view = new View();
