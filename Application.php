@@ -1,17 +1,17 @@
 <?php
 
-namespace app\core;
+namespace kadcore\tcphpmvc;
 
 use app\controllers\AuthController;
-use app\core\Controller;
-use app\core\UserModel;
-use app\core\db\Database;
+use kadcore\tcphpmvc\Controller;
+use kadcore\tcphpmvc\UserModel;
+use kadcore\tcphpmvc\db\Database;
 
 /**
  * Class Application
  * 
  * @author Kadu <kaduhoff@gmail.com>
- * @package app\core
+ * @package kadcore\tcphpmvc
  * 
  */
 class Application

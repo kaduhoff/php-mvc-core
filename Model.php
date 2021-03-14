@@ -1,12 +1,12 @@
 <?php
 
-namespace app\core;
+namespace kadcore\tcphpmvc;
 
 /**
  * Classe base para models com funções essenciais e comuns
  * 
  * @author Kadu Hoffmann <kaduhoff@gmail.com>
- * @package app\core
+ * @package kadcore\tcphpmvc
  */
 abstract class Model
 {

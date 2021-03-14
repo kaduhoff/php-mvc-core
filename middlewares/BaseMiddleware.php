@@ -1,11 +1,11 @@
 <?php
 
-namespace app\core\middlewares;
+namespace kadcore\tcphpmvc\middlewares;
 
 /**
  * Classe base para criação de middleware 
  * @author Kadu Hoffmann <kaduhoff@gmail.com>
- * @package app\core\middlewares 
+ * @package kadcore\tcphpmvc\middlewares 
  * */
 abstract class BaseMiddleware
 {

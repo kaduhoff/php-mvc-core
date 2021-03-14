@@ -1,16 +1,16 @@
 <?php
 
-namespace app\core\middlewares;
+namespace kadcore\tcphpmvc\middlewares;
 
-use app\core\Controller;
-use app\core\Application;
-use app\core\exceptions\ForbiddenException;
+use kadcore\tcphpmvc\Controller;
+use kadcore\tcphpmvc\Application;
+use kadcore\tcphpmvc\exceptions\ForbiddenException;
 use Exception;
 
 /** 
  * Middleware de autorizações de usuários
  * @author Kadu Hoffmann <kaduhoff@gmail.com>
- * @package app\core\middlewares 
+ * @package kadcore\tcphpmvc\middlewares 
  * */
 class AuthMiddleware extends BaseMiddleware
 {

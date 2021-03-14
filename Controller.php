@@ -1,9 +1,9 @@
 <?php
 
-namespace app\core;
+namespace kadcore\tcphpmvc;
 
-use app\core\Application;
-use app\core\middlewares\BaseMiddleware;
+use kadcore\tcphpmvc\Application;
+use kadcore\tcphpmvc\middlewares\BaseMiddleware;
 
 /**
  * Controller padrão da aplicação
@@ -19,7 +19,7 @@ class Controller
 
     /**
      * array de Middlewares dos controllers
-     * @var app\core\middlewares\BaseMiddleware[]
+     * @var kadcore\tcphpmvc\middlewares\BaseMiddleware[]
      */
     protected array $middlewares = [];
     public string $action = '';
@@ -48,7 +48,7 @@ class Controller
     /**
      * Get array de Middlewares dos controllers
      *
-     * @return  app\core\middlewares\BaseMiddleware[]
+     * @return  kadcore\tcphpmvc\middlewares\BaseMiddleware[]
      */ 
     public function getMiddlewares()
     {

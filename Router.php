@@ -1,15 +1,15 @@
 <?php
 
-namespace app\core;
+namespace kadcore\tcphpmvc;
 
-use app\core\Controller;
+use kadcore\tcphpmvc\Controller;
 use Exception;
 
 /**
  * Router para os caminhos da url
  * 
  * @author Kaduhoff <kadu@gmail.com>
- * @package app\core
+ * @package kadcore\tcphpmvc
  */
 class Router
 {

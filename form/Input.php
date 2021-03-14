@@ -1,6 +1,6 @@
 <?php
 
-namespace app\core\form;
+namespace kadcore\tcphpmvc\form;
 
 class Input
 {

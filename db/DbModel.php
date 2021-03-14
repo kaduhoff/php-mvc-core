@@ -1,10 +1,10 @@
 <?php
 
-namespace app\core\db;
+namespace kadcore\tcphpmvc\db;
 
-use app\core\Model;
+use kadcore\tcphpmvc\Model;
 use Dotenv\Parser\Value;
-use app\core\Application;
+use kadcore\tcphpmvc\Application;
 
 abstract class DbModel extends Model
 {

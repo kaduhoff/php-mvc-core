@@ -1,9 +1,9 @@
 <?php
 
-namespace app\core\db;
+namespace kadcore\tcphpmvc\db;
 
 use PDO;
-use app\core\Application;
+use kadcore\tcphpmvc\Application;
 
 class Database
 {

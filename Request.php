@@ -1,10 +1,10 @@
 <?php
 
-namespace app\core;
+namespace kadcore\tcphpmvc;
 
 /**
  * Pega dados das requisições web
- * @package app\core
+ * @package kadcore\tcphpmvc
  */
 class Request
 {

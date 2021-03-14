@@ -1,9 +1,9 @@
 <?php
 
-namespace app\core;
+namespace kadcore\tcphpmvc;
 
-use app\core\Application;
-use app\core\db\DbModel;
+use kadcore\tcphpmvc\Application;
+use kadcore\tcphpmvc\db\DbModel;
 
 class UserModel extends DbModel
 {

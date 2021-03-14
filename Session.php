@@ -1,13 +1,13 @@
 <?php
 
-namespace app\core;
+namespace kadcore\tcphpmvc;
 
 /**
  * Ativa os coockies de sessão, possui também 
  * cookies exclusivos da aplicação. 
  * 
  * @author Kadu Hoffmann <kaduhoff@gmail.com>
- * @package app\core 
+ * @package kadcore\tcphpmvc 
  * */
 class Session
 {

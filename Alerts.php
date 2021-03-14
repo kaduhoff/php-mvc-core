@@ -1,11 +1,11 @@
 <?php
 
-namespace app\core;
+namespace kadcore\tcphpmvc;
 
 /** 
  * Alertas para a aplicação
  * @author Kadu Hoffmann <kaduhoff@gmail.com>
- * @package app\core 
+ * @package kadcore\tcphpmvc 
  */
 class Alerts
 {
