@@ -1,0 +1,13 @@
+{
+    "name": "kadcore/tcphpmvc",
+    "description": "php MVC core Framework",
+    "type": "library",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Kadu Hoffmann",
+            "email": "kaduhoff@gmail.com"
+        }
+    ],
+    "require": {}
+}
