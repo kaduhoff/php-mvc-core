@@ -2,8 +2,6 @@
 
 namespace kadcore\tcphpmvc;
 
-use app\controllers\AuthController;
-use kadcore\tcphpmvc\Controller;
 use kadcore\tcphpmvc\UserModel;
 use kadcore\tcphpmvc\db\Database;
 
@@ -35,7 +33,7 @@ class Application
         $this->request = new Request();
         $this->response = new Response();
         $this->session = new Session();
-        $this->userLogged =  AuthController::getLoggedUser();
+        $this->userLogged =  self::getLoggedUser();
         //echo $this->userLogged->id;
         $this->router = new Router($this->request, $this->response);
         $this->view = new View();
@@ -44,10 +42,21 @@ class Application
 
     }
 
+
     public function setLoginUser(UserModel $user)
     {
         $this->userLogged = $user;
         $this->session->setUserLogged($user->id);
+    }
+
+    public static function getLoggedUser() 
+    {
+        $userId = Application::$app->session->getUserLogged();
+        $user = new UserModel();
+        if ($userId) {
+            $user->getByKey($userId);
+        }
+        return $user;
     }
 
     public function logoutUser()
