@@ -12,7 +12,8 @@ class TextArea
         private string $help = '', 
         private bool $required = false, 
         private bool $disabled = false,
-        private string $error = '' 
+        private string $error = '',
+        private int $rows = 4,
         )
     {
         
@@ -27,6 +28,7 @@ class TextArea
         $fieldOptions .= empty($this->help) ? '' : ' aria-describedby="'.$this->name.'Help"';
         $fieldOptions .= (!$this->required) ? '' : ' required';
         $fieldOptions .= (!$this->disabled) ? '' : ' disabled';
+        $fieldOptions .= ' rows = "'.$this->rows.'"';
 
         $invalid = empty($this->error) ? '' : ' is-invalid';
 
