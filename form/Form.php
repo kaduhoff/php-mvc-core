@@ -10,10 +10,10 @@ class Form
     private $formEnd;
     private $model;
 
-    public function __construct($model, $action, $method)
+    public function __construct($model, $action, $method, $options = '')
     {
         $this->model = $model;
-        $this->formBegin = \sprintf('<form action="%s" method="%s" >', $action, $method);
+        $this->formBegin = \sprintf('<form action="%s" method="%s" %s>', $action, $method, $options);
         $this->formEnd = "</form>";
       
     }
