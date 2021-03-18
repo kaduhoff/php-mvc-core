@@ -24,10 +24,23 @@ class UserModel extends DbModel
         return "users";
     }
 
-    public function save(): bool
+    public function insertNew(): bool
     {   
         $this->password = \password_hash($this->password, \PASSWORD_DEFAULT);
         return parent::insert(["name","email","password","status"]);
+    }
+
+    public function updateData(): bool
+    {   
+        if (\strlen($this->password) === 0) {
+            return parent::update(["id"],["name","email","status"]);
+        } elseif ((\strlen($this->password) >= 8) && (\strlen($this->password) <= 24) && ($this->password === $this->passRepeat)) {
+            $this->password = \password_hash($this->password, \PASSWORD_DEFAULT);
+            return parent::update(["id"],["name","email","password","status"]);
+        } else {
+            Alerts::setDanger("Senha preenchida inválida");
+            return false;
+        }
     }
 
     public function rules(): array 

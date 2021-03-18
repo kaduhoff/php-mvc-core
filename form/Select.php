@@ -14,6 +14,7 @@ class Select
         private bool $disabled = false,
         private string $error = '',
         private bool|int $size = false, 
+        private string $selectedValue = '', 
         private string $fieldOptions = '',
         )
     {
@@ -41,7 +42,8 @@ class Select
 
         $stringHtml .= "<select name=\"$this->name\" class=\"form-control $invalid\" id=\"$this->name\" $this->fieldOptions>";
         foreach ($this->values as $key => $value) {
-            $stringHtml .= "<option value=\"$value\">$key</option>";
+            $selected = ($this->selectedValue == $value) ? 'selected' : '';
+            $stringHtml .= "<option value=\"$value\" $selected>$key</option>";
         }
         $stringHtml .= "</select>";
 

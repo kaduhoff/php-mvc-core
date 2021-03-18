@@ -47,6 +47,51 @@ abstract class DbModel extends Model
         
     }
 
+    /**
+     * Atualiza registros indicados nas colunas, baseado na condição passada
+     * @param array $condition condição do update (WHERE)
+     * @param array $attributes fieldnames a atualizar
+     * @return bool retruna true se deu certo
+     */
+    public function update(array $conditions, array $attributes): bool
+    {
+        
+        $tableName = $this->tableName();
+        //coloca aspas duplas para os nomes das colunas (padrão case-sensitive)
+        $colNames = \array_map(fn($x) => '"'.$x.'" = :'.$x, $attributes);
+        //transforma array em uma unica string 
+        $colNames = \implode(", ", $colNames);
+
+        //parametros para prepare são com "?" para evitar sql injection
+        $conditionWhere = \array_map(fn($x) => '"'.$x.'" = :'.$x, $conditions);
+        $conditionWhere = \implode(',', $conditionWhere);
+        $sql = "UPDATE $tableName SET $colNames WHERE $conditionWhere";
+
+        //echo $sql; exit;
+        $statement = self::prepare($sql);
+        
+        //adicionando os valores ao prepare
+        foreach ($attributes as $attribute) {
+            $statement->bindValue(":$attribute", $this->{$attribute});
+        }
+
+        //adicionando os valores ao prepare (condições where)
+        foreach ($conditions as $condition) {
+            $statement->bindValue(":$condition", $this->{$condition});
+        }
+
+        try {
+            $statement->execute();
+            //echo $sql; exit;
+            return true;
+        } catch (\Throwable $th) {
+            //throw $th;
+            $this->lastErrors = $statement->errorInfo();
+            return false;
+        }
+        
+    }
+
     /** 
      * Valida com array das regras aplicadas em rules()
      * @return bool  
@@ -165,7 +210,7 @@ abstract class DbModel extends Model
      * @param mixed $keyValue 
      * @return exit 
      */
-    public function getByKey(...$keyValue)
+    public function getByKey(...$keyValue) : bool
     {
         $tableName = $this->tableName();
         $pkColsNames = $this->getPrimaryKeysColsNames();
@@ -201,7 +246,6 @@ abstract class DbModel extends Model
             throw $th;
             return false;
         }
-
-        
+        return false;
     }
 }
