@@ -11,7 +11,7 @@ use kadcore\tcphpmvc\UserModel;
  * @author Kadu Hoffmann <kaduhoff@gmail.com>
  * @package kadcore\tcphpmvc\middlewares 
  * */
-class AdminMiddleware extends BaseMiddleware
+class UserAdminMiddleware extends BaseMiddleware
 {
     public function __construct(
         public array $actions = []
