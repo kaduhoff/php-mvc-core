@@ -144,7 +144,7 @@ abstract class DbModel extends Model
                     and kcu.constraint_schema = tco.constraint_schema
                     and kcu.constraint_name = tco.constraint_name
                 where tco.constraint_type = 'PRIMARY KEY'
-                    and kcu.table_schema = 'public'
+                    and kcu.table_schema = '" .  Application::$app->db->schemaname . "'
                     and kcu.table_name = ?
                 order by kcu.table_schema,
                         kcu.table_name,

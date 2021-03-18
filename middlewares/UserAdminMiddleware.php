@@ -26,9 +26,17 @@ class UserAdminMiddleware extends BaseMiddleware
      */
     public function execute()
     {
-        if (Application::$app->userLogged->status !== UserModel::STATUS_ADMIN) {
-            if (empty($this->actions) || in_array(Application::$app->controller->action, $this->actions)) {
-                throw new \Exception("Erro de permissão acesso. Somente administradores podem acessar essa área.", 403);
+        $pdo = Application::$app->db->pdo;
+        $sql = 'SELECT COUNT(*) FROM users WHERE "status" = '.UserModel::STATUS_ADMIN;
+        $statement = $pdo->prepare($sql);
+        $statement->execute();
+        $count = $statement->fetchColumn(0);
+        //só entra se já tiver admin cadastrado
+        if ($count > 0) {
+            if (Application::$app->userLogged->status !== UserModel::STATUS_ADMIN) {
+                if (empty($this->actions) || in_array(Application::$app->controller->action, $this->actions)) {
+                    throw new \Exception("Erro de permissão acesso. Somente administradores podem acessar essa área.", 403);
+                }
             }
         }
     }

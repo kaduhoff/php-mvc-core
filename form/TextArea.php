@@ -21,8 +21,7 @@ class TextArea
 
     public function __toString()
     {
-        $stringHtml = '<div class="mb-3">';
-        $stringHtml .= "<label for=\"$this->name\" class=\"form-label\">$this->title</label>";
+        $stringHtml = "<label for=\"$this->name\" class=\"form-label\">$this->title</label>";
 
         $fieldOptions = empty($this->placeholder) ? '' : ' placeholder="'.$this->placeholder.'"';
         $fieldOptions .= empty($this->help) ? '' : ' aria-describedby="'.$this->name.'Help"';
@@ -44,7 +43,6 @@ class TextArea
             '<div class="invalid-feedback">%s</div>',
             $this->error
         );
-        $stringHtml .= '</div>';
 
         return $stringHtml;
     }
