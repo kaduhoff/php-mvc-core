@@ -7,16 +7,17 @@ use kadcore\tcphpmvc\db\DbModel;
 
 class UserModel extends DbModel
 {
-    const STATUS_INATIVE = 0;
-    const STATUS_ACTIVE = 1;
-    const STATUS_DELETED = 2;
+    const STATUS_ACTIVE = 0;
+    const STATUS_ADMIN = 1;
+    const STATUS_INACTIVE = 2;
+    const STATUS_DELETED = 3;
 
     public int $id = 0;
     public string $nome = '';
     public string $email = '';
     public string $senha = '';
     public string $senha2 = '';
-    public int $status = self::STATUS_INATIVE;
+    public int $status = self::STATUS_INACTIVE;
     
     public function tableName(): string
     {
@@ -25,7 +26,7 @@ class UserModel extends DbModel
 
     public function save(): bool
     {   
-        $this->status = self::STATUS_INATIVE;
+        $this->status = self::STATUS_INACTIVE;
         $this->senha = \password_hash($this->senha, \PASSWORD_DEFAULT);
         return parent::insert(["nome","email","senha","status"]);
     }

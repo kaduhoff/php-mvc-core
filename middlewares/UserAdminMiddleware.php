@@ -2,17 +2,16 @@
 
 namespace kadcore\tcphpmvc\middlewares;
 
-use kadcore\tcphpmvc\Controller;
 use kadcore\tcphpmvc\Application;
-use kadcore\tcphpmvc\exceptions\ForbiddenException;
 use Exception;
+use kadcore\tcphpmvc\UserModel;
 
 /** 
  * Middleware de autorizações de usuários
  * @author Kadu Hoffmann <kaduhoff@gmail.com>
  * @package kadcore\tcphpmvc\middlewares 
  * */
-class AuthMiddleware extends BaseMiddleware
+class AdminMiddleware extends BaseMiddleware
 {
     public function __construct(
         public array $actions = []
@@ -27,7 +26,7 @@ class AuthMiddleware extends BaseMiddleware
      */
     public function execute()
     {
-        if (Application::$app->userLogged->isGuest()) {
+        if (Application::$app->userLogged->status == UserModel::STATUS_ADMIN) {
             if (empty($this->actions) || in_array(Application::$app->controller->action, $this->actions)) {
                 throw new \Exception("Você não tem permissão esse acesso", 403);
             }
