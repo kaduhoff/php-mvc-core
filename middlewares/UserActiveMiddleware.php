@@ -32,7 +32,7 @@ class UserActiveMiddleware extends BaseMiddleware
             Application::$app->userLogged->status == UserModel::STATUS_DELETED
             ) {
             if (empty($this->actions) || in_array(Application::$app->controller->action, $this->actions)) {
-                throw new \Exception("Você não tem permissão esse acesso", 403);
+                throw new \Exception("Você não tem permissão para esse acesso", 403);
             }
         }
     }

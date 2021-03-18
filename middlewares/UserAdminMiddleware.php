@@ -26,9 +26,9 @@ class UserAdminMiddleware extends BaseMiddleware
      */
     public function execute()
     {
-        if (!Application::$app->userLogged->status == UserModel::STATUS_ADMIN) {
+        if (Application::$app->userLogged->status !== UserModel::STATUS_ADMIN) {
             if (empty($this->actions) || in_array(Application::$app->controller->action, $this->actions)) {
-                throw new \Exception("Você não tem permissão esse acesso", 403);
+                throw new \Exception("Erro de permissão acesso. Somente administradores podem acessar essa área.", 403);
             }
         }
     }
