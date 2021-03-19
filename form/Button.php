@@ -12,7 +12,7 @@ class Button
      */
     public function __construct(
         private string $caption = 'Enviar',
-        private string $type = 'sbmit',
+        private string $type = 'submit',
         private string $classButton = 'btn-primary'
     )
     {

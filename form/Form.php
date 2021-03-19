@@ -8,11 +8,9 @@ class Form
     private $formBegin;
     private $formContent = [];
     private $formEnd;
-    private $model;
 
-    public function __construct($model, $action, $method, $options = '')
+    public function __construct($action, $method, $options = '')
     {
-        $this->model = $model;
         $this->formBegin = \sprintf('<form action="%s" method="%s" %s>', $action, $method, $options);
         $this->formEnd = "</form>";
       
@@ -38,11 +36,13 @@ class Form
         $this->formContent[] = $itemFormHtml;
     }
     
-    public function addRow(array $itemsFormHtml)
-    {
-        $newRow = '<div class="row">';
+    public function addRow(array $itemsFormHtml, array $class = [])
+    {   
+        $rowClasses = $class['row'] ?? '';
+        $colClasses = $class['col'] ?? '';
+        $newRow = '<div class="row '.$rowClasses.'">';
         foreach ($itemsFormHtml as $key => $value) {
-            $newRow .= '<div class="col">';    
+            $newRow .= '<div class="col '.$colClasses.'">';    
             $newRow .= $value;
             $newRow .= '</div>';
         }

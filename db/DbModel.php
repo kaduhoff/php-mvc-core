@@ -93,12 +93,16 @@ abstract class DbModel extends Model
     }
 
     /** 
-     * Valida com array das regras aplicadas em rules()
+     * Valida com array das regras aplicadas em rules() 
+     * @ignore array de atributos a ignorar na validação
      * @return bool  
      * */
-    public function validate(): bool
+    public function validate(array $ignore = []): bool
     {   
         foreach ($this->rules() as $attribute => $rules) {
+            if (\in_array($attribute, $ignore)) {
+                continue;
+            }
             //valor do atributo do modelo 
             $value = $this->{$attribute};
             foreach ($rules as $rule) {
@@ -123,7 +127,7 @@ abstract class DbModel extends Model
         //roda validações herdadas do modelo pai
         parent::validate();
 
-        //retorna true se algum erro foi preenchido
+        //retorna false se algum erro foi preenchido
         return empty($this->errors);
     }
 
