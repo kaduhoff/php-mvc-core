@@ -31,7 +31,12 @@ class Input
 
         $invalid = empty($this->error) ? '' : ' is-invalid';
 
-        $stringHtml .= "<input type=\"$this->type\" name=\"$this->name\" class=\"form-control $invalid\" id=\"$this->name\" value=\"$this->value\" $this->fieldOptions>";
+        $class = match ($this->type) {
+            'checkbox', 'radio' => 'form-check-input',
+            default => 'form-control'
+        };
+
+        $stringHtml .= "<input type=\"$this->type\" name=\"$this->name\" class=\"$class $invalid\" id=\"$this->name\" value=\"$this->value\" $this->fieldOptions>";
 
         $stringHtml .= empty($this->help) ? '' : \sprintf(
             '<div id="%sHelp" class="form-text">%s</div>',
