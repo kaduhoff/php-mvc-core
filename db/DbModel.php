@@ -4,6 +4,7 @@ namespace kadcore\tcphpmvc\db;
 
 use kadcore\tcphpmvc\Model;
 use Dotenv\Parser\Value;
+use Exception;
 use kadcore\tcphpmvc\Application;
 
 abstract class DbModel extends Model
@@ -30,10 +31,16 @@ abstract class DbModel extends Model
         $sqlInsert = "INSERT INTO $tableName ($colNames) VALUES ($params)";
         //echo $sqlInsert; exit;
         $statement = self::prepare($sqlInsert);
-        
         //adicionando os valores ao prepare
         foreach ($attributes as $attribute) {
-            $statement->bindValue(":$attribute", $this->{$attribute});
+            //chek type
+            $varType = \gettype($this->{$attribute});
+            if ($varType === 'object') {
+                //if DateTime change to string formated
+                $statement->bindValue(":$attribute", $this->objectDataConversion($this->{$attribute}));
+            } else {
+                $statement->bindValue(":$attribute", $this->{$attribute});
+            }
         }
 
         try {
@@ -72,12 +79,26 @@ abstract class DbModel extends Model
         
         //adicionando os valores ao prepare
         foreach ($attributes as $attribute) {
-            $statement->bindValue(":$attribute", $this->{$attribute});
+            //chek type
+            $varType = \gettype($this->{$attribute});
+            if ($varType === 'object') {
+                //if DateTime change to string formated
+                $statement->bindValue(":$attribute", $this->objectDataConversion($this->{$attribute}));
+            } else {
+                $statement->bindValue(":$attribute", $this->{$attribute});
+            }
         }
 
         //adicionando os valores ao prepare (condições where)
         foreach ($conditions as $condition) {
-            $statement->bindValue(":$condition", $this->{$condition});
+            //chek type
+            $varType = \gettype($this->{$condition});
+            if ($varType === 'object') {
+                //if DateTime change to string formated
+                $statement->bindValue(":$condition", $this->objectDataConversion($this->{$condition}));
+            } else {
+                $statement->bindValue(":$condition", $this->{$condition});
+            }
         }
 
         try {
@@ -90,6 +111,17 @@ abstract class DbModel extends Model
             return false;
         }
         
+    }
+
+    public function objectDataConversion($object): string|int
+    {
+        //if DateTime change to string formated
+        if (\get_class($object) === 'DateTime') {
+            return (string)$object->format('Y-m-d H:i:s');
+        } else {
+            throw new \Exception('Object conversion not implemented yet on DbModel->objectDataConversion');
+        }
+        return '';
     }
 
     /** 
