@@ -9,6 +9,7 @@ class Input
         private string $type, 
         private string $name, 
         private string $value = '',
+        private string $labelAfter = '', 
         private string $placeholder = '', 
         private string $help = '', 
         private bool $required = false, 
@@ -22,7 +23,10 @@ class Input
 
     public function __toString()
     {
-        $stringHtml = "<label for=\"$this->name\" class=\"form-label\">$this->title</label>";
+        $stringHtml = '';
+        if (!empty($this->title)) {
+            $stringHtml .= "<label for=\"$this->name\" class=\"form-label\">$this->title</label>";
+        }
 
         $this->fieldOptions .= empty($this->placeholder) ? '' : ' placeholder="'.$this->placeholder.'"';
         $this->fieldOptions .= empty($this->help) ? '' : ' aria-describedby="'.$this->name.'Help"';
@@ -37,6 +41,10 @@ class Input
         };
 
         $stringHtml .= "<input type=\"$this->type\" name=\"$this->name\" class=\"$class $invalid\" id=\"$this->name\" value=\"$this->value\" $this->fieldOptions>";
+
+        if (!empty($this->labelAfter)) {
+            $stringHtml .= "<label for=\"$this->name\" class=\"form-label\">$this->labelAfter</label>";
+        }
 
         $stringHtml .= empty($this->help) ? '' : \sprintf(
             '<div id="%sHelp" class="form-text">%s</div>',

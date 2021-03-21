@@ -6,6 +6,7 @@ use kadcore\tcphpmvc\Model;
 use Dotenv\Parser\Value;
 use Exception;
 use kadcore\tcphpmvc\Application;
+use PDO;
 
 abstract class DbModel extends Model
 {
@@ -45,6 +46,9 @@ abstract class DbModel extends Model
 
         try {
             $statement->execute();
+
+            //não funciona a linha abaixo
+            //$ultimo_id = $statement->fetch(PDO::FETCH_ASSOC);
             return true;
         } catch (\Throwable $th) {
             //throw $th;
@@ -283,5 +287,45 @@ abstract class DbModel extends Model
             return false;
         }
         return false;
+    }
+
+    /**
+     * Acha Primeira correspondencia encontrada pelos parametros passados pelo array e preenche o objeto. 
+     * 
+     * @param array $params 
+     * Ex: [
+     *      'code' => '1234',
+     *      'insurance_id' => 1
+     *     ]
+     * @return bool true se encontrou e já preenche o objeto e false se não achou; 
+     */
+    public function getByParams(array $params): bool
+    {
+        $sql = 'SELECT * FROM ' . $this->tableName() . ' WHERE ';
+        $where = [];
+        foreach ($params as $key => $value) {
+            $where[] = "$key = :$key";
+        }
+        $where = \implode(" AND ", $where);
+        $sql .= $where;
+        $statement = $this->prepare($sql);
+        foreach ($params as $key => $value) {
+            $statement->bindValue(":$key", $value);
+        }
+        $statement->execute();
+
+        if ($statement->rowCount() > 0) {
+            $results = $statement->fetchObject();
+            //verifica os atributos da classe que são vinculados
+            $attributes = $this->attributes();
+            foreach ($attributes as $bindName) {
+                if (\property_exists($this, $bindName)) {
+                    $this->$bindName = $results->$bindName ?? null;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -74,7 +74,8 @@ class Application
         try {
             echo $this->router->resolve();
         } catch (\Throwable $th) {
-            $this->response->setStatusCode($th->getCode());
+            $errCode = \is_numeric($th->getCode()) ? $th->getCode() : 1;
+            $this->response->setStatusCode($errCode);
             echo $this->view->renderView('_error', [
                 'exception' => $th
             ]);

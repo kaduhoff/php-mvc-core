@@ -47,7 +47,10 @@ class Alerts
         Application::$app->session->setFlash('danger', $message);
     }
     
-
+    public static function setWarning($message, $dismissing = true)
+    {
+        Application::$app->session->setFlash('warning', $message);
+    }
     /**
      * retorna os Alertas em HTML
      * 
